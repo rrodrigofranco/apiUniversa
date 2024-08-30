@@ -18,6 +18,7 @@ defined('ABSPATH') or die('Not Authorized!');
 // Plugin Defines
 define('API_UNIVERSA_FILE', __FILE__);
 define('API_UNIVERSA_DIRECTORY', dirname(__FILE__));
+define('API_UNIVERSA_BASE', 'https://universa-api.universaeducacional.com.br/centec');
 define('API_UNIVERSA_TEXT_DOMAIN', 'api-universa');
 define('API_UNIVERSA_DIRECTORY_BASENAME', plugin_basename(API_UNIVERSA_FILE));
 define('API_UNIVERSA_DIRECTORY_PATH', plugin_dir_path(API_UNIVERSA_FILE));

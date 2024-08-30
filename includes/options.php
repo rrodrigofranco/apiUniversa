@@ -29,10 +29,7 @@ function api_universa_admin_enqueue_styles($hook) {
 add_action('admin_enqueue_scripts', 'api_universa_admin_enqueue_styles');
 
 function verifyToken($email, $password){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-  
-    $url = "https://universa-api.universaeducacional.com.br/centec/v1/auth/login";
+    $url = API_UNIVERSA_BASE ."/v1/auth/login";
     
     $data = [
         'email' => $email,
@@ -46,13 +43,14 @@ function verifyToken($email, $password){
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data, true));
   
     $response = curl_exec($ch);
-  
+     
     if (curl_errno($ch)) {
         echo 'cURL error: ' . curl_error($ch);
     } else {
       $response_data = json_decode($response, true);
       if (isset($response_data["token"])) {
           $token = $response_data["token"];
+          
           update_option('universa_email', $email);
           update_option('universa_password', $password);
           update_option('universa_auth_token', $token);
@@ -63,21 +61,18 @@ function verifyToken($email, $password){
       curl_close($ch);
   
       return false;
-  }
+}
 
 function api_universa_admin_page() {
     include(API_UNIVERSA_DIRECTORY_PATH . 'admin/config.php');
 }
 
-function do_this_in_an_hour() {
-    $email = get_option('universa_email');
+function schedule_token_verification() {
+    $email    = get_option('universa_email');
     $password = get_option('universa_password');
+
     verifyToken($email, $password);
-    wp_update_post(array(
-        'ID'    =>  '1',
-        'post_status'   =>  'draft'
-        ));  
  }
- add_action( 'my_new_event','do_this_in_an_hour' );
+ add_action( 'envento_verificar_token','schedule_token_verification' );
  
- wp_schedule_single_event( time() + 30, 'my_new_event' );
+ wp_schedule_single_event( time() + 30, 'envento_verificar_token' );
