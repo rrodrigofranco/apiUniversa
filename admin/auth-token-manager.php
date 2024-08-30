@@ -58,7 +58,7 @@ function do_this_in_a_time() {
 
 function schedule_token_verification() {
   if (!wp_next_scheduled('envento_verificar_token')) {
-      wp_schedule_single_event(time() + 86400, 'envento_verificar_token'); // 86400 seconds = 24 hours
+      wp_schedule_single_event(time() + 3600, 'envento_verificar_token'); // 3600 seconds = 1 hour
   }
 }
 
