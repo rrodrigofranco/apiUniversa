@@ -142,6 +142,6 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
 
     }
     curl_close($ch);
-    // Para consultar o token basta usar o seguinte código: $token = get_option('site_auth_token');
+    // Para consultar o token basta usar o seguinte código: $token = get_option('universa_auth_token');
 }
 ?>
