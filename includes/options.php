@@ -75,4 +75,4 @@ function schedule_token_verification() {
  }
  add_action( 'envento_verificar_token','schedule_token_verification' );
  
- wp_schedule_single_event( time() + 30, 'envento_verificar_token' );
+ wp_schedule_single_event( time() + 3600, 'envento_verificar_token' );
