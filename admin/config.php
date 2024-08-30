@@ -129,11 +129,19 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
     if (curl_errno($ch)) {
         echo 'cURL error: ' . curl_error($ch);
     } else {
-        $response_data = json_decode($response, true);
-        $token = $response_data["token"];
-        echo $token;
+      $response_data = json_decode($response, true);
+      if (isset($response_data["token"])) {
+          $token = $response_data["token"];
+          global $wpdb;
+          $table_name = $wpdb->prefix . 'auth_tokens';
+          update_option('universa_auth_token', $token);
+          echo 'Token salvo com sucesso!';
+      } else {
+          echo 'Token não encontrado!';
+      }
 
     }
     curl_close($ch);
+    // Para consultar o token basta usar o seguinte código: $token = get_option('site_auth_token');
 }
 ?>
