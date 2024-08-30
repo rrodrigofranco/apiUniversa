@@ -17,5 +17,7 @@
     <input type="password" name="password" placeholder="Entre com a senha" value="<?php echo isset($password) ? esc_attr($password) : ''; ?>">
   </div>
   <button id= "login-submit" type="submit">Login</button>
+  
 </form>
+<?php echo $success ?>
 </div>
