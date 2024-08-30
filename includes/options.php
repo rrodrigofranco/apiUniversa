@@ -1,26 +1,33 @@
 <?php
-// Settings menu creation
-function check_sellers_admin_menu() {
-    add_menu_page( 'Universa', 'Universa','manage_options', UNI_ROUTE . '/admin/config.php', '', 'dashicons-welcome-learn-more');
+defined('ABSPATH') or die('Not Authorized!');
+
+function api_universa_add_admin_menu() {
+    add_menu_page(
+        'Universa',
+        'Universa',
+        'manage_options',
+        'api-universa-admin',
+        'api_universa_admin_page',
+        'dashicons-welcome-learn-more'
+    );
 }
-add_action( 'admin_menu', 'check_sellers_admin_menu' );
+add_action('admin_menu', 'api_universa_add_admin_menu');
 
-function create_token_table() {
-    global $wpdb;
+function api_universa_admin_enqueue_styles($hook) {
+    if ($hook != 'toplevel_page_api-universa-admin') {
+        return;
+    }
 
-    $table_name = $wpdb->prefix . 'auth_tokens'; // Define the table name
-    $charset_collate = $wpdb->get_charset_collate();
-
-    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
-        id mediumint(9) NOT NULL AUTO_INCREMENT,
-        email varchar(255) NOT NULL,
-        token text NOT NULL,
-        created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
-        PRIMARY KEY  (id)
-    ) $charset_collate;";
-
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);
+    wp_enqueue_style(
+        'api-universa-admin-style',
+        API_UNIVERSA_DIRECTORY_URL . '/assets/css/style.css',
+        array(),
+        '1.0',
+        'all'
+    );
 }
+add_action('admin_enqueue_scripts', 'api_universa_admin_enqueue_styles');
 
-add_action('after_switch_theme', 'create_token_table');
+function api_universa_admin_page() {
+    include(API_UNIVERSA_DIRECTORY_PATH . 'admin/config.php');
+}

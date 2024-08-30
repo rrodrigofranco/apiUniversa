@@ -7,10 +7,20 @@
  * Version: 1.0.0
  * Author: Gleidson
  * Author URI: https://versaurb.com.br
+ * Text Domain: api-universa
+ * License: GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-defined('ABSPATH') or die("Not Allowed!");
+// Block direct access to file
+defined('ABSPATH') or die('Not Authorized!');
 
-define('UNI_ROUTE', plugin_dir_path(__FILE__));
+// Plugin Defines
+define('API_UNIVERSA_FILE', __FILE__);
+define('API_UNIVERSA_DIRECTORY', dirname(__FILE__));
+define('API_UNIVERSA_TEXT_DOMAIN', 'api-universa');
+define('API_UNIVERSA_DIRECTORY_BASENAME', plugin_basename(API_UNIVERSA_FILE));
+define('API_UNIVERSA_DIRECTORY_PATH', plugin_dir_path(API_UNIVERSA_FILE));
+define('API_UNIVERSA_DIRECTORY_URL', plugins_url('', API_UNIVERSA_FILE));
 
-include(UNI_ROUTE . '/includes/options.php');
+require_once(API_UNIVERSA_DIRECTORY_PATH . 'includes/options.php');
