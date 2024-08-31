@@ -64,7 +64,7 @@ function verifyToken($email, $password){
 }
 
 function api_universa_admin_page() {
-    include(API_UNIVERSA_DIRECTORY_PATH . 'admin/config.php');
+    include API_UNIVERSA_DIRECTORY_PATH . 'admin/config.php';
 }
 
 function schedule_token_verification() {

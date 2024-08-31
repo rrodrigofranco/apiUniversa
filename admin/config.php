@@ -1,7 +1,7 @@
 
 <?php
-  include(API_UNIVERSA_DIRECTORY_PATH . 'admin/auth-token-manager.php');
-  $email = get_option('universa_email');
+  include API_UNIVERSA_DIRECTORY_PATH . 'admin/auth-token-manager.php';
+  $email    = get_option('universa_email');
   $password = get_option('universa_password');
   
 ?>
