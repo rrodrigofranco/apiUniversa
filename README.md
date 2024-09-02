@@ -23,7 +23,6 @@ Para autenticar um usuário e obter um token:
 use includes\Services\ApiClientService;
 
 $client = new ApiClientService();
-// $token = $client->authenticate('email@example.com', 'password123');
 ```
 
 #### Consultar Dados
