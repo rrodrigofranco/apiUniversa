@@ -55,13 +55,6 @@ Antes de instalar e usar o plugin, certifique-se de que seu ambiente WordPress a
 2. **Insira suas Credenciais da API:**
    - Insira as credenciais fornecidas pela API da Universa.
 
-3. **Atualize os Links Permanentes:**
-   - Vá até **Configurações** > **Links Permanentes** no painel administrativo.
-   - Clique em **Salvar Alterações** sem fazer nenhuma modificação para atualizar as regras de rewrite. Isso é necessário para garantir que todas as rotas e endpoints personalizados do plugin funcionem corretamente.
-
-4. **Salvar Configurações:**
-   - Retorne à página de configurações do plugin e clique no botão **Salvar Alterações** para aplicar as configurações.
-
 ## Como Utilizar
 
 ### Usando o Serviço `ApiClientService`

@@ -25,3 +25,14 @@ define('API_UNIVERSA_DIRECTORY_PATH', plugin_dir_path(API_UNIVERSA_FILE));
 define('API_UNIVERSA_DIRECTORY_URL', plugins_url('', API_UNIVERSA_FILE));
 
 require_once(API_UNIVERSA_DIRECTORY_PATH . 'includes/options.php');
+
+register_activation_hook(__FILE__, 'api_universa_plugin_activation');
+register_deactivation_hook(__FILE__, 'api_universa_plugin_deactivation');
+
+function api_universa_plugin_activation() {
+    flush_rewrite_rules();
+}
+
+function api_universa_plugin_deactivation() {
+    flush_rewrite_rules();
+}
