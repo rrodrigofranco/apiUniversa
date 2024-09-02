@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name: Api Universa
- * Plugin URI: https://versaurb.com.br
+ * Plugin URI: https://versatecnologia.com.br
  * Description: Consulta Api Universa
  * Version: 1.0.0
  * Author: Gleidson
- * Author URI: https://versaurb.com.br
+ * Author URI: https://versatecnologia.com.br
  * Text Domain: api-universa
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
