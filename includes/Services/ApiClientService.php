@@ -10,7 +10,7 @@ use includes\Traits\ApiRequestTrait;
  * Qualquer dúvida com a utilização do serviço, tratar com: raul.oliveira@versatecnologia.com.br
  */
 
-class ApiClientService{
+ final class ApiClientService{
     use ApiRequestTrait;
 
     private $baseUrl;
