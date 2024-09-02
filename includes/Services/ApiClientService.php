@@ -40,27 +40,27 @@ use includes\Traits\ApiRequestTrait;
     public function getData($endpoint, $params = []){
         $url = $this->baseUrl . $endpoint;
         $headers = ['Authorization: Bearer ' . $this->authToken];
-        return $this->getRequest($url, $params, $headers);
+        return json_decode($this->getRequest($url, $params, $headers), true);
     }
 
     //Função POST
     public function createData($endpoint, $data){
         $url = $this->baseUrl . $endpoint;
         $headers = ['Authorization: Bearer ' . $this->authToken];
-        return $this->postRequest($url, $data, $headers);
+        return json_decode($this->postRequest($url, $data, $headers), true);
     }
 
     //Função PUT
     public function updateData($endpoint, $data){
         $url = $this->baseUrl . $endpoint;
         $headers = ['Authorization: Bearer ' . $this->authToken];
-        return $this->putRequest($url, $data, $headers);
+        return json_decode($this->putRequest($url, $data, $headers), true);
     }
 
     //Função DELETE
     public function deleteData($endpoint, $data = []){
         $url = $this->baseUrl . $endpoint;
         $headers = ['Authorization: Bearer ' . $this->authToken];
-        return $this->deleteRequest($url, $data, $headers);
+        return json_decode($this->deleteRequest($url, $data, $headers), true);
     }
 }
