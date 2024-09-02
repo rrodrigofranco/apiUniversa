@@ -1,6 +1,7 @@
 <?php
 
-use Includes\Traits\ApiRequestTrait;
+namespace includes\Services;
+use includes\Traits\ApiRequestTrait;
 
 /**
  * Este é um exemplo de serviço de utilização da trait, cuja ideia é
