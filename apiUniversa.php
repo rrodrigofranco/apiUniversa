@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Api Universa
  * Plugin URI: https://versatecnologia.com.br
- * Description: Consulta Api Universa
+ * Description: Este plugin do WordPress permite realizar autenticação e consultas à API da Universa.
  * Version: 1.0.0
  * Author: Gleidson
  * Author URI: https://versatecnologia.com.br
