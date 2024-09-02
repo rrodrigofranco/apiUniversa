@@ -9,7 +9,6 @@ Antes de instalar e usar o plugin, certifique-se de que seu ambiente WordPress a
 - **Versão do WordPress:** 5.0 ou superior
 - **Versão do PHP:** 7.4 ou superior
 - **Extensões PHP:** cURL, JSON (ambas geralmente estão ativas por padrão)
-- **Credenciais da API Universa:** Você precisará de uma chave de API válida fornecida pela Universa.
 
 ## Instalação
 
