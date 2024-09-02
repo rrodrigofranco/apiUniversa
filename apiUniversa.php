@@ -24,9 +24,9 @@ define('API_UNIVERSA_DIRECTORY_BASENAME', plugin_basename(API_UNIVERSA_FILE));
 define('API_UNIVERSA_DIRECTORY_PATH', plugin_dir_path(API_UNIVERSA_FILE));
 define('API_UNIVERSA_DIRECTORY_URL', plugins_url('', API_UNIVERSA_FILE));
 
-require_once(API_UNIVERSA_DIRECTORY_PATH . 'includes/options.php');
-require_once(API_UNIVERSA_DIRECTORY_PATH . 'includes/Traits/ApiRequestTrait.php');
-require_once(API_UNIVERSA_DIRECTORY_PATH . 'includes/Services/ApiClientService.php');
+include_once API_UNIVERSA_DIRECTORY_PATH . 'includes/options.php';
+include_once API_UNIVERSA_DIRECTORY_PATH . 'includes/Traits/ApiRequestTrait.php';
+include_once API_UNIVERSA_DIRECTORY_PATH . 'includes/Services/ApiClientService.php';
 
 register_activation_hook(API_UNIVERSA_FILE, 'api_universa_plugin_activation');
 register_deactivation_hook(API_UNIVERSA_FILE, 'api_universa_plugin_deactivation');
