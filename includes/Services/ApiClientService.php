@@ -207,7 +207,7 @@ use includes\Traits\ApiRequestTrait;
                 if (is_wp_error($post_id)) {
                     $results['errors'][] = [
                         'campus_id' => $course_id,
-                        'error' => $updated_post_id->get_error_message()
+                        'error' => $post_id->get_error_message()
                     ];
                 } else {
                     $results['inserted'][] = $post_id;
