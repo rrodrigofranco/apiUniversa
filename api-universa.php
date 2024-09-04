@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Api Universa
- * Plugin URI: https://versatecnologia.com.br
+ * Plugin URI: https://github.com/rrodrigofranco/apiUniversa
  * Description: Este plugin do WordPress permite realizar autenticação e consultas à API da Universa.
  * Version: 1.0.0
  * Author: Gleidson
@@ -25,8 +25,6 @@ define('API_UNIVERSA_DIRECTORY_PATH', plugin_dir_path(API_UNIVERSA_FILE));
 define('API_UNIVERSA_DIRECTORY_URL', plugins_url('', API_UNIVERSA_FILE));
 
 include_once API_UNIVERSA_DIRECTORY_PATH . 'includes/options.php';
-include_once API_UNIVERSA_DIRECTORY_PATH . 'includes/Traits/ApiRequestTrait.php';
-include_once API_UNIVERSA_DIRECTORY_PATH . 'includes/Services/ApiClientService.php';
 
 register_activation_hook(API_UNIVERSA_FILE, 'api_universa_plugin_activation');
 register_deactivation_hook(API_UNIVERSA_FILE, 'api_universa_plugin_deactivation');
