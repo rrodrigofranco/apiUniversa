@@ -42,7 +42,7 @@ trait ApiRequestTrait{
         $response = curl_exec($curl);
 
         if (curl_errno($curl)) {
-            throw new Exception('Request Error: ' . curl_error($curl));
+            throw new \Exception('Request Error: ' . curl_error($curl));
         }
 
         curl_close($curl);

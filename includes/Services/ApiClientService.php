@@ -17,7 +17,7 @@ use includes\Traits\ApiRequestTrait;
     private $authToken;
 
     public function __construct(){
-        $this->baseUrl = API_UNIVERSA_BASE;
+        $this->baseUrl   = API_UNIVERSA_BASE;
         $this->authToken = get_option('universa_auth_token');
     }
 
@@ -69,23 +69,30 @@ use includes\Traits\ApiRequestTrait;
         $url = $this->baseUrl . '/v1/campuses';
         $headers = ['Authorization: Bearer ' . $this->authToken];
         $campus_data = json_decode($this->getRequest($url, [], $headers), true);
-
-        foreach($campus_data as $campus) {
-            $campuses_id = $campus["id"];
+        $results = [];
+    
+        if (isset($campus_data['data'])) {
+            $campus_data = $campus_data['data'];
+        }
+    
+        foreach ($campus_data as $campus) {
+            $campus_id = $campus["id"];
     
             $args = [
                 'post_type'  => 'campus',
                 'meta_query' => [
                     [
                         'key'   => 'campuses_id',
-                        'value' => $campuses_id,
+                        'value' => $campus_id,
                         'compare' => '='
                     ]
                 ]
             ];
-        
+    
+            $query = new \WP_Query($args);
+    
             $post_data = [
-                'post_title'   => sanitize_text_field($campus["name"]),
+                'post_title'   => $campus["name"],
                 'post_content' => '',
                 'post_status'  => 'publish',
                 'post_type'    => 'campus',
@@ -97,17 +104,15 @@ use includes\Traits\ApiRequestTrait;
                     'website'        => $campus["website"] ?? '',
                 ]
             ];
-        
-            $query = new \WP_Query($args);
-        
+    
             if ($query->have_posts()) {
                 $existing_post_id = $query->posts[0]->ID;
                 $post_data['ID'] = $existing_post_id;
                 $updated_post_id = wp_update_post($post_data);
-        
+    
                 if (is_wp_error($updated_post_id)) {
                     $results['errors'][] = [
-                        'campus_id' => $campuses_id,
+                        'campus_id' => $campus_id,
                         'error' => $updated_post_id->get_error_message()
                     ];
                 } else {
@@ -115,32 +120,35 @@ use includes\Traits\ApiRequestTrait;
                 }
             } else {
                 $post_id = wp_insert_post($post_data);
-        
+    
                 if (is_wp_error($post_id)) {
                     $results['errors'][] = [
-                        'campus_id' => $campuses_id,
+                        'campus_id' => $campus_id,
                         'error' => $post_id->get_error_message()
                     ];
                 } else {
                     $results['inserted'][] = $post_id;
                 }
             }
-        
+    
             wp_reset_postdata();
         }
-
+    
         return $results;
     }
+    
+    
 
     //Método de sincronização de cursos
-    
     public function synchronize_courses() {
         $url = $this->baseUrl . '/v1/courses';
         $headers = ['Authorization: Bearer ' . $this->authToken];
         $course_data = json_decode($this->getRequest($url, [], $headers), true);
+        $results = [];
     
-        foreach($course_data as $course) {
-            $course_id =  $course["id"];
+        foreach ($course_data['data'] as $course) {
+            $course_id = $course["id"];
+        
             $args = [
                 'post_type'  => 'course',
                 'meta_query' => [
@@ -151,24 +159,27 @@ use includes\Traits\ApiRequestTrait;
                     ]
                 ]
             ];
-    
+        
             $query = new \WP_Query($args);
             $campuses_data = [];
-            foreach ($course["campuses"] as $campus) {
-                $campuses_data[] = [
-                    'campus_id'      => $campus["id"] ?? '',
-                    'institution_id' => $campus["institution_id"] ?? '',
-                    'campus_name'    => $campus["name"] ?? '',
-                    'phone'          => $campus["phone"] ?? '',
-                    'email'          => $campus["email"] ?? '',
-                    'website'        => $campus["website"] ?? '',
-                ];
+        
+            if (isset($course["campuses"])) {
+                foreach ($course["campuses"] as $campus) {
+                    $campuses_data[] = [
+                        'campus_id'      => $campus["id"] ?? '',
+                        'institution_id' => $campus["institution_id"] ?? '',
+                        'campus_name'    => $campus["name"] ?? '',
+                        'phone'          => $campus["phone"] ?? '',
+                        'email'          => $campus["email"] ?? '',
+                        'website'        => $campus["website"] ?? '',
+                    ];
+                }
             }
         
             $campuses_serialized = maybe_serialize($campuses_data);
         
             $post_data = [
-                'post_title'   => sanitize_text_field($course["name"]),
+                'post_title'   => $course["name"],
                 'post_content' => '',
                 'post_status'  => 'publish',
                 'post_type'    => 'course',
@@ -186,16 +197,15 @@ use includes\Traits\ApiRequestTrait;
                     'image_url'           => $course["image_url"] ?? '',
                 ]
             ];
-    
+        
             if ($query->have_posts()) {
                 $existing_post_id = $query->posts[0]->ID;
                 $post_data['ID'] = $existing_post_id;
-    
+        
                 $updated_post_id = wp_update_post($post_data);
-    
                 if (is_wp_error($updated_post_id)) {
-                     $results['errors'][] = [
-                        'campus_id' => $course_id,
+                    $results['errors'][] = [
+                        'course_id' => $course_id,
                         'error' => $updated_post_id->get_error_message()
                     ];
                 } else {
@@ -203,20 +213,22 @@ use includes\Traits\ApiRequestTrait;
                 }
             } else {
                 $post_id = wp_insert_post($post_data);
-    
+        
                 if (is_wp_error($post_id)) {
                     $results['errors'][] = [
-                        'campus_id' => $course_id,
+                        'course_id' => $course_id,
                         'error' => $post_id->get_error_message()
                     ];
                 } else {
                     $results['inserted'][] = $post_id;
                 }
             }
-    
+        
             wp_reset_postdata();
         }
-
+        
         return $results;
     }
+    
+    
 }
