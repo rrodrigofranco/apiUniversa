@@ -64,15 +64,13 @@ Antes de instalar e usar o plugin, certifique-se de que seu ambiente WordPress a
 - **Consultas:**
   - Após autenticar, você pode usar o plugin para realizar consultas específicas à API.
 
-O serviço `ApiClientService` encapsula as funcionalidades de requisições cURL e permite interagir facilmente com a API da Universa.
+A função `ApiUniversa()` encapsula as funcionalidades de requisições cURL e permite interagir facilmente com a API da Universa.
 
 #### Autenticação
 Para autenticar um usuário e obter um token:
 
 ```php
-use includes\Services\ApiClientService;
-
-$client = new ApiClientService();
+$client = ApiUniversa();
 ```
 
 #### Consultar Dados
