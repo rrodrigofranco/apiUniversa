@@ -57,7 +57,7 @@ Antes de instalar e usar o plugin, certifique-se de que seu ambiente WordPress a
 
 ## Como Utilizar
 
-### Usando o Serviço `ApiClientService`
+### Usando a Função `ApiUniversa()`
 
 - **Autenticação:**
   - Utilize as configurações fornecidas para autenticar na API da Universa.
