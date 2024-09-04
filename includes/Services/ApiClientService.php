@@ -66,9 +66,10 @@ use includes\Traits\ApiRequestTrait;
 
     // Método de sincronização de campus
     public function synchronize_campuses() {
-        $client = ApiUniversa();
-        $campus_data = $client->getData('/v1/campuses', [])["data"];
-    
+        $url = $this->baseUrl . '/v1/campuses';
+        $headers = ['Authorization: Bearer ' . $this->authToken];
+        $campus_data = json_decode($this->getRequest($url, [], $headers), true);
+
         foreach($campus_data as $campus) {
             $campuses_id = $campus["id"];
     
@@ -134,8 +135,9 @@ use includes\Traits\ApiRequestTrait;
     //Método de sincronização de cursos
     
     public function synchronize_courses() {
-        $client = ApiUniversa();
-        $course_data = $client->getData('/v1/courses', [])["data"];
+        $url = $this->baseUrl . '/v1/courses';
+        $headers = ['Authorization: Bearer ' . $this->authToken];
+        $course_data = json_decode($this->getRequest($url, [], $headers), true);
     
         foreach($course_data as $course) {
             $course_id =  $course["id"];
