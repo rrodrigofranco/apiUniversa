@@ -285,6 +285,9 @@ function schedule_token_verification() {
  }
  add_action( 'evento_verificar_token','schedule_token_verification' );
 
+ $token_timer = get_option('universa_token_timer') != '' ? get_option('universa_token_timer') : 60;
+ wp_schedule_single_event( time() + $token_timer * 60, 'evento_verificar_token' );
+
  function schedule_synchronic() {
     $client = ApiUniversa();
     $client->synchronize_courses();
@@ -292,9 +295,6 @@ function schedule_token_verification() {
  }
 
  add_action( 'evento_sincronizar','schedule_synchronic' );
- 
- $token_timer = get_option('universa_token_timer') != '' ? get_option('universa_token_timer') : 60;
- $sync_timer  = get_option('universa_sync_timer')  != '' ? get_option('universa_sync_timer')  : 24;
 
- wp_schedule_single_event( time() + $token_timer * 60, 'evento_verificar_token' );
+ $sync_timer  = get_option('universa_sync_timer')  != '' ? get_option('universa_sync_timer')  : 24;
  wp_schedule_single_event( time() + $sync_timer * 60 * 60, 'evento_sincronizar' );
