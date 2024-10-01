@@ -64,7 +64,7 @@ use includes\Traits\ApiRequestTrait;
     }
 
     // Método de sincronização de campus
-    public function synchronize_campuses() {
+    public function synchronize_campuses($batch_size = 100) {
         $url = $this->baseUrl . '/v1/campuses';
         $headers = ['Authorization: Bearer ' . $this->authToken];
         $campus_data = json_decode($this->getRequest($url, [], $headers), true);
