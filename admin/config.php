@@ -4,6 +4,7 @@
   $email       = get_option('universa_email');
   $password    = get_option('universa_password');
   $token       = get_option('universa_auth_token');
+  $batch_size    = get_option('universa_batch_size') != '' ? get_option('universa_batch_size') : null;
   $token_timer = get_option('universa_token_timer') != '' ? get_option('universa_token_timer') : null;
   $sync_timer  = get_option('universa_sync_timer')  != '' ? get_option('universa_sync_timer') : null;
   
@@ -21,15 +22,19 @@
   </div>
   <div class="row-login">
     <label for="token">Token</label>
-    <input type="token" name="token" autocomplete="off" value="<?php echo isset($token) ? esc_attr($token) : ''; ?>" disabled>
+    <input type="text" name="token" autocomplete="off" value="<?php echo isset($token) ? esc_attr($token) : ''; ?>" disabled>
   </div>
   <div class="row-login">
     <label for="token_timer">Tempo de Atualização do Token (Minutos)</label>
-    <input type="token_timer" name="token_timer" autocomplete="off" value="<?php echo isset($token_timer) ? esc_attr($token_timer) : '60'; ?>">
+    <input type="text" name="token_timer" autocomplete="off" value="<?php echo isset($token_timer) ? esc_attr($token_timer) : '60'; ?>">
+  </div>
+  <div class="row-login">
+    <label for="batch_size">Items por pagina de sincronização</label>
+    <input type="text" name="batch_size" autocomplete="off" value="<?php echo isset($batch_size) ? esc_attr($batch_size) : '100'; ?>">
   </div>
   <div class="row-login">
     <label for="sync_timer">Tempo de Sicronização (horas)</label>
-    <input type="sync_timer" name="sync_timer" autocomplete="off" value="<?php echo isset($sync_timer) ? esc_attr($sync_timer) : '24'; ?>">
+    <input type="text" name="sync_timer" autocomplete="off" value="<?php echo isset($sync_timer) ? esc_attr($sync_timer) : '24'; ?>">
   </div>
   <button id= "login-submit" type="submit">Salvar</button>
   

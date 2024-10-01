@@ -222,7 +222,7 @@ function sync_courses_callback() {
     }
 
     $client = ApiUniversa();
-    $result = $client->synchronize_courses();
+    $result = $client->synchronize_courses(get_option('universa_batch_size'));
 
     if (!empty($result['errors'])) {
         wp_send_json_error('Erros durante a sincronização.');
@@ -238,7 +238,7 @@ function sync_campuses_callback() {
     }
 
     $client = ApiUniversa();
-    $result = $client->synchronize_campuses();
+    $result = $client->synchronize_campuses(get_option('universa_batch_size'));
 
     if (!empty($result['errors'])) {
         wp_send_json_error('Erros durante a sincronização.');
@@ -290,8 +290,8 @@ function schedule_token_verification() {
 
  function schedule_synchronic() {
     $client = ApiUniversa();
-    $client->synchronize_courses();
-    $client->synchronize_campuses();
+    $client->synchronize_courses(get_option('universa_batch_size'));
+    $client->synchronize_campuses(get_option('universa_batch_size'));
  }
 
  add_action( 'evento_sincronizar','schedule_synchronic' );

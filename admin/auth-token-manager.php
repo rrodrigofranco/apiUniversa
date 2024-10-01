@@ -6,6 +6,7 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
     $client      = ApiUniversa();
     $email       = $_POST['email'];
     $password    = $_POST['password'];
+    $batch_size    = $_POST['batch_size'];
     $token_timer = $_POST['token_timer'];
     $sync_timer  = $_POST['sync_timer'];
 
@@ -21,9 +22,9 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
         update_option('universa_email',       $email);
         update_option('universa_password',    $password);
         update_option('universa_auth_token',  $token);
+        update_option('universa_batch_size',  $batch_size);
         update_option('universa_token_timer', $token_timer);
         update_option('universa_sync_timer',  $sync_timer);
-        
     }
 
     $success = $token ? '<div class="alert-success">Configuração feita com sucesso!</div>' : '<div class="alert-danger">Problemas na configuração!</div>';
