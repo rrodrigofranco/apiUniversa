@@ -283,18 +283,40 @@ function schedule_token_verification() {
 
     return false;
  }
- add_action( 'evento_verificar_token','schedule_token_verification' );
+ add_action('evento_verificar_token', 'schedule_token_verification');
 
- $token_timer = get_option('universa_token_timer') != '' ? get_option('universa_token_timer') : 60;
- wp_schedule_single_event( time() + $token_timer * 60, 'evento_verificar_token' );
+ // Agendar evento para verificação de token baseado no timer de opções
+function api_universa_schedule_token_verification_event() {
+    $token_timer = get_option('universa_token_timer') != '' ? get_option('universa_token_timer') : 60;
 
- function schedule_synchronic() {
+    if (!wp_next_scheduled('evento_verificar_token')) {
+        wp_schedule_event(time(), 'minutes_' . $token_timer, 'evento_verificar_token');
+    }
+}
+add_action('wp', 'api_universa_schedule_token_verification_event');
+
+// Função para agendar a sincronização (Cron)
+function schedule_synchronic() {
     $client = ApiUniversa();
     $client->synchronize_courses(get_option('universa_batch_size'));
     $client->synchronize_campuses(get_option('universa_batch_size'));
- }
+}
+add_action('evento_sincronizar', 'schedule_synchronic');
 
- add_action( 'evento_sincronizar','schedule_synchronic' );
+// Agendar evento para sincronização baseado no timer de opções
+function api_universa_schedule_sync_event() {
+    $sync_timer = get_option('universa_sync_timer') != '' ? get_option('universa_sync_timer') : 24;
 
- $sync_timer  = get_option('universa_sync_timer')  != '' ? get_option('universa_sync_timer')  : 24;
- wp_schedule_single_event( time() + $sync_timer * 60 * 60, 'evento_sincronizar' );
+    if (!wp_next_scheduled('evento_sincronizar')) {
+        wp_schedule_event(time(), 'hours_' . $sync_timer, 'evento_sincronizar');
+    }
+}
+add_action('wp', 'api_universa_schedule_sync_event');
+
+// Remover eventos agendados ao desativar o plugin
+function api_universa_clear_scheduled_events() {
+    wp_clear_scheduled_hook('evento_verificar_token');
+    wp_clear_scheduled_hook('evento_sincronizar');
+}
+register_deactivation_hook(__FILE__, 'api_universa_clear_scheduled_events');
+ 
